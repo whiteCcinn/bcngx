@@ -1,0 +1,57 @@
+#!/usr/bin/bash
+pidDir="pid"
+pidFile="bcngx.pid"
+confDir="conf"
+serverDir="server"
+currentPath=`pwd`
+appPath=${currentPath}
+pidFile="${appPath}/${pidDir}/${pidFile}"
+
+function start(){
+	php pt_server.php ${pidFile}
+	if [ $? == 0 ]; then
+		printf "\tserver start OK\n"
+		return 0
+	else
+		printf "\tserver start FAIL\n"
+		return 1
+	fi
+}
+
+function stop(){
+	if [ -f "$pidFile" ]; then
+		pid=`cat $pidFile`
+		if [ -n "$pid" ];then
+			kill -15 $pid
+			if [ $? == 0 ];then
+				printf "\t server stop OK \n"
+				return 0
+			fi
+		fi
+		printf "\t server stop FAIL \n"
+		return 2
+	fi
+	printf "\t server is not run\n"
+	return 3
+}
+
+
+case $1 in
+
+	start )
+		start
+	;;
+	stop)
+		stop
+	;;
+	restart)
+		stop
+		sleep 1
+		start
+	;;
+
+	*)
+		start
+	;;
+esac
+

@@ -1,0 +1,7 @@
+pidDir="pid"
+pidFile="bcngxPid"
+confDir="conf"
+serverDir="server"
+currentPath=`pwd`
+appPath=${currentPath}
+pidFile="${appPath}/${pidDir}/${pidFile}"
