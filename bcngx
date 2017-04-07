@@ -6,9 +6,10 @@ serverDir="server"
 currentPath=`pwd`
 appPath=${currentPath}
 pidFile="${appPath}/${pidDir}/${pidFile}"
+serverFile="${appPath}/${serverDir}/bcngx.php"
 
 function start(){
-	php pt_server.php ${pidFile}
+	php ${serverFile} ${pidFile}
 	if [ $? == 0 ]; then
 		printf "\tserver start OK\n"
 		return 0
